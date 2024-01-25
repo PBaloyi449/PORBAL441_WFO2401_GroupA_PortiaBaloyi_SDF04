@@ -1,5 +1,5 @@
 let player = {
-    name: "Per",
+    name: "Portia",
     chips: 200
 }
 
@@ -13,7 +13,7 @@ let sumEl = document.getElementById("sum-el")
 let cardsEl = document.getElementById("cards-el")
 let playerEl = document.getElementById("player-el")
 
-playerEl.textContent = player.name + ": $" + player.chips
+playerEl.textContent = player.name + ": R" + player.chips
 
 function getRandomCard() {
     let randomNumber = Math.floor( Math.random()*13 ) + 1
@@ -27,12 +27,22 @@ function getRandomCard() {
 }
 
 function startGame() {
-    isAlive = true
-    let firstCard = getRandomCard()
-    let secondCard = getRandomCard()
-    cards = [firstCard, secondCard]
-    sum = firstCard + secondCard
-    renderGame()
+    if(player.chips >=20){
+        //Player has enough chips to start the game
+        player.chips -= 20; // Deduct 20 chips
+        playerEl.textContent = player.name + ": R" + player.chips; // Update displayed chips
+        isAlive = true
+        let firstCard = getRandomCard()
+        let secondCard = getRandomCard()
+        cards = [firstCard, secondCard]
+        sum = firstCard + secondCard
+
+        renderGame()
+    }
+    else{
+        // Player doesn't have enough chips to start the game
+        messageEl.textContent = "You don't have enough chips to start the game!"
+    }   
 }
 
 function renderGame() {
